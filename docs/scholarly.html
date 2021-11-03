@@ -41,7 +41,7 @@
                             <li>Main service</li>
                             <li>Recommandations service</li>
                             <li>Data refresh service</li>
-                            <li>User Preferences Service</li>
+                            <li>User Profile Service</li>
                         </ol>
                     </p>
                 </section>
@@ -75,8 +75,6 @@
                             request to this service, and the said service will check the credentials, and if they are fine(that is, this user is already present in the database)
                             then it will generate a JWT token for the user and send it back to him in the response's payload. This JWT token will keep, besides an validity timeframe, metadata about
                             the user like: the geographical location, its name etc and the preferences it has selected in the frontend UI. 
-                            On thing worth pointing out is the geographical location of the user; this piece of information about the user
-                            will be sent to the authentication service by the front-end application(granted, the user accepted the browser's request of triangulating the user's location). 
                         </p>
                     </section>
 
@@ -88,14 +86,15 @@
                             <p>
                                 This service, through the endpoints it will expose, will provide the main functionality of the platform.
                                 The endpoints will provide a REST interface that the front-end component can interact with through HTTP calls in order to allow the user to interact with the web application.
-                                Furthermore, all the requests that will be made to this service will be checked for the JWT token that is mandatory. In case the token isn't present, the request will be rejected.
+                                Furthermore, all the requests that will be made to this service will be checked for the JWT token that is mandatory. 
+                                In case the token isn't present, the request will be rejected.
                             </p>
                         </section>
 
                         <section>
                             <h5>Functionality</h5>
                             <p>
-                                One of the features that will be provided by this service is the ability of retrieving, from the database, all the information of interest for the user based on it's metadata and preferences. 
+                                One of the features that will be provided by this service is the ability of retrieving, from the database, all the information of interest for the user based on it's metadata and interests. 
                             </p>
                         </section>
                     </section>
@@ -104,15 +103,21 @@
                         <h4>Data refresh service</h4>
                         <p>
                             This service will help keep the data as fresh as possible. Basically, this service will have a scheduled job that runes every week which will
-                            download the latest version of the data set, parse it and update the database.
+                            download the latest version of the data set, parse it and update the database. 
                             Because this service doesn't expose any endpoints, it can't be accessed from the outside world, so no validation is needed.
                         </p>
                     </section>
 
                     <section>
-                        <h4>User Preferences Service</h4>
+                        <h4>User Profile Service</h4>
                         <p>
-                            This service will expose a set of endpoints that will be called by the front end in order to allow the user to manage its preferences and data which it considers interesting.
+                            This service will expose a set of endpoints that will be called by the front end in order to allow the user to manage its profile and data.
+                            The endpoints exposed by this service, which will be called by the front end application, the user will be able to:
+                                <ol>
+                                    <li>Change its personal data, like: first name, last name, location</li>
+                                    <li>Add, remove or update its area of interest</li>
+                                    <li>Add, remove or update its area of skills</li>
+                                </ol>
                             As with the other services, each request will be validated by checking that the JWT token is present in it.
                         </p>
                     </section>
