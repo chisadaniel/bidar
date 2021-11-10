@@ -51,6 +51,7 @@
                             <li>Main service</li>
                             <li>Recommandations service</li>
                             <li>User Profile Service</li>
+                            <li>TODO: History Service?</li>
                         </ol>
                     </p>
                 </section>
@@ -67,15 +68,8 @@
                 <section>
                     <h3>Data</h3>
                     <p>
-                        We've taked into consideration two source from where we could gather our data.
-                    </p>
-                    <ol>
-                        <li>DBpedia</li>
-                        <li>Wikidata</li>
-                    </ol>
-                    <p>
-                        Both expose a sparql endpoint that can be called in order to retrieve the data in an easy and efficient manner
-                        The alternative would have been to download periodically a dump of all the data that's stored in these sources, parse it, and update a database maintained by the application
+                        The main source of data for the application is DBpedia. 
+                        The data will be retrieved from DBpedia by calling the sparql endpoint exposed by it.
                     </p>
                 </section>
 
@@ -93,11 +87,10 @@
                         <h4>Authentication service</h4>
                         <p>
                             This service will check the user's credentials in order to make sure he is an already existing customer of the platform.
-      
                         </p>
                         <p>
                             From a technical point of view, this service will work using JWT token. The front-end, will make, on behalf of the user a 'log-in'
-                            request to this service, and the said service will check the credentials, and if they are fine(that is, this user is already present in the database)
+                            request to this service, and the said service will check the credentials, and if they are fine(that is, this user's credentials are already present in the database)
                             then it will generate a JWT token for the user and send it back to him in the response's payload.
                         </p>
                         <p>
@@ -124,13 +117,30 @@
                             <h5>Functionality</h5>
                             <p>
                                 One of the features that will be provided by this service is the ability of retrieving, from the database, all the information of interest for the user based on it's metadata and interests.
-                                To retrieve the data, this service will make send sparql queries to some sparql endpoints exposed by the sources from which the data will be gathered.  
+                            </p>
+                            <p>
+                                Another feature provided by this service is represented by the comparison capabilities between two sets of content returned by the data source.
+                                Basically, the service will retrieve the right data for the two input and generate a difference between them.
+                            </p>
+                            <p>
+
                             </p>
                             <p>
                                 This service will take into account the reliability and fault tolerance of the sparql endpoints that are exposed and queried when a request gets processed.
                                 Therefor, the application will attempt a retry if a request to one of the said endpoints fails.
                             </p>
+                            <p>
+                                To retrieve the data, this service will make send sparql queries to some sparql endpoints exposed by the sources from which the data will be gathered.  
+                            </p>
                         </section>
+                    </section>
+
+                    <section>
+                        <h4>History Service</h4>
+
+                        <p>
+                            This service will save in a database the search results the user interacted with.
+                        </p>
                     </section>
 
                     <section>
@@ -140,9 +150,11 @@
                             The endpoints exposed by this service, which will be called by the front end application, the user will be able to:
                                 <ol>
                                     <li>Change its personal data, like: first name, last name, location</li>
+                                    <li>In what language he wants the results to be displayed</li>
                                     <li>Add, remove or update its area of interest</li>
                                     <li>Add, remove or update its area of skills</li>
                                 </ol>
+                            All this service's input will be validated for correctness(basically, the skills, interests and so on should be choosen from a predfined liet displayed by the frontend application)
                             As with the other services, each request will be validated by checking that the JWT token is present in it.
                         </p>
                     </section>
@@ -160,13 +172,12 @@
 
                         <section>
                             <h5>Recommandation generation approaches</h5>
+                            <p>For recommandations the user's history will be taken into account by the algorithm that will generate the said recomandations.</p>
                             <p>
-                                How the recommandations will be generated is still undecided, various solutions/approaches being available:
-                                
+                                There are various algorithms/approaches available, for example:  
                                 <ol>
                                     <li>A simple rule based apporach</li>
                                     <li>Kmeans algorithm</li>
-                                    <li>Other</li>
                                 </ol>
                             </p>
                         </section>
@@ -189,8 +200,6 @@
                 <ol>
                     <li>Java</li>
                     <li>Spring + Spring Boot</li>
-                    <li>Apache Jena</li>
-                    <li>React/Vue?</li>
                 </ol>
 
                 <section>
@@ -205,13 +214,6 @@
                     <h3>Spring, Spring Boot</h3>
                     <p>
                         Spring Boot will be used thanks to it's flawless support and integration with the Java programming language and Apache Jena.
-                    </p>
-                </section>
-
-                <section>
-                    <h3>Apache Jena</h3>
-                    <p>
-                        TODO
                     </p>
                 </section>
             </section>
