@@ -120,17 +120,15 @@
                             </p>
                             <p>
                                 Another feature provided by this service is represented by the comparison capabilities between two sets of content returned by the data source.
-                                Basically, the service will retrieve the right data for the two input and generate a difference between them.
-                            </p>
-                            <p>
-
-                            </p>
-                            <p>
-                                This service will take into account the reliability and fault tolerance of the sparql endpoints that are exposed and queried when a request gets processed.
-                                Therefor, the application will attempt a retry if a request to one of the said endpoints fails.
+                                Basically, the service will retrieve the right data for the two input and generate a difference between them. 
+                                The response will contain the differences between the two resources.
                             </p>
                             <p>
                                 To retrieve the data, this service will make send sparql queries to some sparql endpoints exposed by the sources from which the data will be gathered.  
+                            </p>
+                            <p>
+                                This service will take into account the reliability and fault tolerance of the sparql endpoints that are exposed and queried when a request gets processed.
+                                Therefor, the application will attempt a retry if a request to the dbpedia's endpoints fails.
                             </p>
                         </section>
                     </section>
