@@ -7,7 +7,7 @@
     </head>
     <body prefix="schema: http://schema.org/ sa: https://ns.science.ai/">
         <article class="container" typeof="schema:ScholarlyArticle">
-            <h1>BIDAR Technical Report</h1>
+            <h1>BIDAR Technical Report!</h1>
 
             <section>
                 <p property="schema:author" typeof="sa:ContributorRole">
@@ -27,7 +27,7 @@
             <section typeof="sa:Abstract">
                 <h2>What is it?</h2>
                 <p>
-                    Develop a (micro-)service-based platform able to "intelligently" query, compare, visualize, share, summarize, etc. large (sets of) data/knowledge and additional resources according to user's needs and preferences – consider demographic information, skills, interests (playing games and skateboarding versus WebAssembly programming and fine arts), social status, entourage, etc.
+                    Bidar is a (micro-)service-based platform able to "intelligently" query, compare, visualize, share, summarize, etc. large (sets of) data/knowledge and additional resources according to user's needs and preferences – consider demographic information, skills, interests (playing games and skateboarding versus WebAssembly programming and fine arts), social status, entourage, etc.
                     Also, this Web system will suggest related information and/or knowledge according to each user profile and a set of given areas/topics of interest
                 </p>
             </section>
@@ -51,7 +51,6 @@
                             <li>Main service</li>
                             <li>Recommandations service</li>
                             <li>User Profile Service</li>
-                            <li>TODO: History Service?</li>
                         </ol>
                     </p>
                 </section>
@@ -61,7 +60,12 @@
 
                     <figure typeof="sa:Image">
                         <img src="./diag.PNG" alt="Main Services and Modules Architecture">
-                        <figcaption>This picture describes how the frontend interacts with the services that make up the backend</figcaption>
+                        <figcaption>This picture from aboce shows the services called by the frontend application</figcaption>
+                    </figure>
+
+                    <figure typeof="sa:Image">
+                        <img src="./seq.PNG" alt="Sequence UML diagram">
+                        <figcaption>This diagrams shows the order in which the services available in the backend will be called by the frontend and also how the backend services retrieves the right data</figcaption>
                     </figure>
                 </section>
 
@@ -134,14 +138,6 @@
                     </section>
 
                     <section>
-                        <h4>History Service</h4>
-
-                        <p>
-                            This service will save in a database the search results the user interacted with.
-                        </p>
-                    </section>
-
-                    <section>
                         <h4>User Profile Service</h4>
                         <p>
                             This service will expose a set of endpoints that will be called by the front end in order to allow the user to manage its profile and data.
@@ -197,6 +193,7 @@
                 <p>In order to make all the described things happen, we'll use the following technologies</p>
                 <ol>
                     <li>Java</li>
+                    <li>Apache Jena</li>
                     <li>Spring + Spring Boot</li>
                 </ol>
 
@@ -212,6 +209,12 @@
                     <h3>Spring, Spring Boot</h3>
                     <p>
                         Spring Boot will be used thanks to it's flawless support and integration with the Java programming language and Apache Jena.
+                    </p>
+                </section>
+                <section>
+                    <h3>Apache Jena</h3>
+                    <p>
+                        Apache Jena is an open source library that will be unsed in order to query the DBpedia's sparql endpoint and work with the resources returned by it.
                     </p>
                 </section>
             </section>
