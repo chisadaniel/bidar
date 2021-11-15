@@ -1,18 +1,17 @@
-package uaic.fii.profile.controller;
+package uaic.fii.main.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
-import io.swagger.v3.oas.annotations.headers.Header;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import uaic.fii.profile.model.RequestInputDto;
-import uaic.fii.profile.model.ResourceDiffDto;
-import uaic.fii.profile.model.ResourceDto;
+import uaic.fii.main.model.RequestInputDto;
+import uaic.fii.main.model.ResourceDiffDto;
+import uaic.fii.main.model.ResourceDto;
 
 import java.util.ArrayList;
 import java.util.List;

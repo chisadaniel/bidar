@@ -1,2 +1,10 @@
-package uaic.fii.recommendation.model;public class ResourceDto {
+package uaic.fii.recommendation.model;
+
+import lombok.Data;
+
+import javax.annotation.Resource;
+
+@Data
+public class ResourceDto {
+    private Resource data;
 }

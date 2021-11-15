@@ -1,4 +1,4 @@
-package uaic.fii.profile.model;
+package uaic.fii.main.model;
 
 import lombok.Data;
 import org.apache.jena.rdf.model.Resource;
