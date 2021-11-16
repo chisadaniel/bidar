@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import uaic.fii.recommendation.model.RecommendationInputDto;
 import uaic.fii.recommendation.model.ResourceDto;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class RecommendationController {
             name = "Authorization",
             required = true,
             content = @Content(schema = @Schema(type = "string")))
-    public List<ResourceDto> getRecommandations(@RequestBody List<ResourceDto> resourceDtos) {
+    public List<ResourceDto> getRecommandations(@RequestBody RecommendationInputDto recommendationInputDto) {
         return new ArrayList<>();
     }
 }

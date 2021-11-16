@@ -1,4 +1,4 @@
-package uaic.fii.profile.model;
+package uaic.fii.recommendation.model;
 
 import lombok.Data;
 
