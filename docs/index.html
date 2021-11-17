@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+    <head>
+        <title>BIDAR Scholarly technical report</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    </head>
+    <body prefix="schema: http://schema.org/ sa: https://ns.science.ai/">
+        <article class="container" typeof="schema:ScholarlyArticle">
+            <h1>BIDAR Technical Report!</h1>
+
+            <section>
+                <p property="schema:author" typeof="sa:ContributorRole">
+                    <span property="schema:givenName">Eduard</span>
+                    <span property="schema:familyName">Ghergheluca</span>
+                </p>
+                <p property="schema:author" typeof="sa:ContributorRole">
+                    <span property="schema:givenName">Daniel</span>
+                    <span property="schema:familyName">Chisa</span>
+                </p>
+                <p property="schema:author" typeof="sa:ContributorRole">
+                    <span property="schema:givenName">Nicolae</span>
+                    <span property="schema:familyName">Carcalet</span>
+                </p>
+            </section>
+
+            <section typeof="sa:Abstract">
+                <h2>What is it?</h2>
+                <p>
+                    Bidar is a (micro-)service-based platform able to "intelligently" query, compare, visualize, share, summarize, etc. large (sets of) data/knowledge and additional resources according to user's needs and preferences – consider demographic information, skills, interests (playing games and skateboarding versus WebAssembly programming and fine arts), social status, entourage, etc.
+                    Also, this Web system will suggest related information and/or knowledge according to each user profile and a set of given areas/topics of interest
+                </p>
+            </section>
+
+            <section>
+                <h2>Linked Data Principle</h2>
+                <p>TODO: Explain why and how the project adheres to this principle</p>
+            </section>
+
+            <section>
+                <h2>Architecture</h2>
+                <p></p>
+
+                <section>
+                    <h3>High level overview</h3>
+                    <p>
+                        The web application is made up of multiple services that communicate with one another in order to provide the functionality expected by the user.
+                        These services are:
+                        <ol>
+                            <li>Authentication service</li>
+                            <li>Main service</li>
+                            <li>Recommandations service</li>
+                            <li>User Profile Service</li>
+                        </ol>
+                    </p>
+                </section>
+
+                <section>
+                    <h3>Diagrams</h3>
+
+                    <figure typeof="sa:Image">
+                        <img src="./diag.PNG" alt="Main Services and Modules Architecture">
+                        <figcaption>This picture from aboce shows the services called by the frontend application</figcaption>
+                    </figure>
+
+                    <figure typeof="sa:Image">
+                        <img src="./seq.PNG" alt="Sequence UML diagram">
+                        <figcaption>This diagrams shows the order in which the services available in the backend will be called by the frontend and also how the backend services retrieves the right data</figcaption>
+                    </figure>
+                </section>
+
+                <section>
+                    <h3>Data</h3>
+                    <p>
+                        The main source of data for the application is DBpedia. 
+                        The data will be retrieved from DBpedia by calling the sparql endpoint exposed by it.
+                    </p>
+                </section>
+
+                <section>
+                    <h3>Front-end</h3>
+                    <p>
+
+                    </p>
+                </section>
+                
+                <section>
+                    <h3>Services</h3>
+
+                    <section>
+                        <h4>Authentication service</h4>
+                        <p>
+                            This service will check the user's credentials in order to make sure he is an already existing customer of the platform.
+                        </p>
+                        <p>
+                            From a technical point of view, this service will work using JWT token. The front-end, will make, on behalf of the user a 'log-in'
+                            request to this service, and the said service will check the credentials, and if they are fine(that is, this user's credentials are already present in the database)
+                            then it will generate a JWT token for the user and send it back to him in the response's payload.
+                        </p>
+                        <p>
+                            This JWT token will keep, besides an validity timeframe, metadata about the user like: the geographical location, its name etc and the preferences it has selected in the frontend UI. 
+                        </p>
+                    </section>
+
+                    <section>
+                        <h4>Main service</h4>
+                        
+                        <section>
+                            <h5>Overview</h5>
+                            <p>
+                                This service, through the endpoints it will expose, will provide the main functionality of the platform.
+                                The said endpoints will provide a REST interface that the front-end component can interact with through HTTP calls in order to allow the user to interact with the web application.
+                            </p>
+                            <p>
+                                Furthermore, all the requests that will be made to this service will be checked for the JWT token that is mandatory. 
+                                In case the token isn't present, the request will be rejected.
+                            </p>
+                        </section>
+
+                        <section>
+                            <h5>Functionality</h5>
+                            <p>
+                                One of the features that will be provided by this service is the ability of retrieving, from the database, all the information of interest for the user based on it's metadata and interests.
+                            </p>
+                            <p>
+                                Another feature provided by this service is represented by the comparison capabilities between two sets of content returned by the data source.
+                                Basically, the service will retrieve the right data for the two input and generate a difference between them. 
+                                The response will contain the differences between the two resources.
+                            </p>
+                            <p>
+                                To retrieve the data, this service will make send sparql queries to some sparql endpoints exposed by the sources from which the data will be gathered.  
+                            </p>
+                            <p>
+                                This service will take into account the reliability and fault tolerance of the sparql endpoints that are exposed and queried when a request gets processed.
+                                Therefor, the application will attempt a retry if a request to the dbpedia's endpoints fails.
+                            </p>
+                        </section>
+                    </section>
+
+                    <section>
+                        <h4>User Profile Service</h4>
+                        <p>
+                            This service will expose a set of endpoints that will be called by the front end in order to allow the user to manage its profile and data.
+                            The endpoints exposed by this service, which will be called by the front end application, the user will be able to:
+                                <ol>
+                                    <li>Change its personal data, like: first name, last name, location</li>
+                                    <li>In what language he wants the results to be displayed</li>
+                                    <li>Add, remove or update its area of interest</li>
+                                    <li>Add, remove or update its area of skills</li>
+                                </ol>
+                            All this service's input will be validated for correctness(basically, the skills, interests and so on should be choosen from a predfined liet displayed by the frontend application)
+                            As with the other services, each request will be validated by checking that the JWT token is present in it.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h4>Recommandations service</h4>
+                        
+                        <section>
+                            <h5>Overview</h5>
+                            <p>
+                                This service will expose a single endpoint, that will receive as input the user's pereferences and other input data provided by him and will sent back a list of
+                                recommended data and genres of interest.
+                            </p>
+                        </section>
+
+                        <section>
+                            <h5>Recommandation generation approaches</h5>
+                            <p>For recommandations the user's history will be taken into account by the algorithm that will generate the said recomandations.</p>
+                            <p>
+                                There are various algorithms/approaches available, for example:  
+                                <ol>
+                                    <li>A simple rule based apporach</li>
+                                    <li>Kmeans algorithm</li>
+                                </ol>
+                            </p>
+                        </section>
+
+                        <section>
+                            <h5>Misc. technical details</h5>
+                            <p>
+                                This endpoint will be called by the front-end application when it has to display a page with the content of interest for the user.
+                                It goes without saying, that any request made to the endpoint exposed by the service will be valided in order to make sure the user is authenticated.
+                            </p>
+                        </section>
+                    </section>
+                </section>
+            </section>
+
+            <section>
+                <h2>Tech stack</h2>
+
+                <p>In order to make all the described things happen, we'll use the following technologies</p>
+                <ol>
+                    <li>Java</li>
+                    <li>Apache Jena</li>
+                    <li>Spring + Spring Boot</li>
+                </ol>
+
+                <section>
+                    <h3>Java</h3>
+                    <p>
+                        Java is the main programming language that is going to be used to implement the said services.
+                        By running on the platform the Java language provides, all the services that make up the backend side of the application
+                        are able to reap the benefits of all the libraries and frameworks that already exist, and increase their reliability, security and performance by doing so.
+                    </p>
+                </section>
+                <section>
+                    <h3>Spring, Spring Boot</h3>
+                    <p>
+                        Spring Boot will be used thanks to it's flawless support and integration with the Java programming language and Apache Jena.
+                    </p>
+                </section>
+                <section>
+                    <h3>Apache Jena</h3>
+                    <p>
+                        Apache Jena is an open source library that will be unsed in order to query the DBpedia's sparql endpoint and work with the resources returned by it.
+                    </p>
+                </section>
+            </section>
+
+            <section>
+                <h2>References</h2>
+
+                <ol>
+                    <li>http://wikidata.dbpedia.org/OnlineAccess</li>
+                    <li>https://www.wikidata.org/wiki/Wikidata:SPARQL_query_service/queries/examples</li>
+                    <li>https://jena.apache.org/</li>
+                </ol>
+            </section>
+        </article>
+    </body>
+</html>
