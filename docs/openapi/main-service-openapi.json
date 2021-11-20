@@ -1,0 +1,113 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "OpenAPI definition",
+        "version": "v0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8082",
+            "description": "Generated server url"
+        }
+    ],
+    "paths": {
+        "/diff": {
+            "post": {
+                "tags": [
+                    "main-controller"
+                ],
+                "description": "This will compare the given DTOs and return all the differences between them",
+                "operationId": "diffResources",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "The Authorization header is mandatory and its valid must be provide JWT token in the form: Authorization: Bearer + <token>",
+                        "required": true,
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {}
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResourceDiffDto"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/resources": {
+            "get": {
+                "tags": [
+                    "main-controller"
+                ],
+                "description": "This will return all the resources for the given request",
+                "operationId": "getResources",
+                "parameters": [
+                    {
+                        "name": "requestInputDto",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/RequestInputDto"
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "The Authorization header is mandatory and its valid must be provide JWT token in the form: Authorization: Bearer + <token>",
+                        "required": true,
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {}
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ResourceDiffDto": {
+                "type": "object",
+                "properties": {
+                    "diffMetadata": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "RequestInputDto": {
+                "type": "object"
+            }
+        }
+    }
+}

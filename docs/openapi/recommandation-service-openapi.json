@@ -1,0 +1,119 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "OpenAPI definition",
+        "version": "v0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8083",
+            "description": "Generated server url"
+        }
+    ],
+    "paths": {
+        "/recommandation": {
+            "get": {
+                "tags": [
+                    "recommendation-controller"
+                ],
+                "description": "This will return a list of recommended resources for a given set of resources",
+                "operationId": "getRecommandations",
+                "parameters": [
+                    {
+                        "name": "recommendationInputDto",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/RecommendationInputDto"
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "The Authorization header is mandatory and its valid must be provide JWT token in the form: Authorization: Bearer + <token>",
+                        "required": true,
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ResourceDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "RecommendationInputDto": {
+                "type": "object",
+                "properties": {
+                    "currentResources": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ResourceDto"
+                        }
+                    },
+                    "userInterests": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/UserInterestDto"
+                        }
+                    },
+                    "userSkills": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/UserSkillDto"
+                        }
+                    }
+                }
+            },
+            "ResourceDto": {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "object"
+                    }
+                }
+            },
+            "UserInterestDto": {
+                "type": "object",
+                "properties": {
+                    "interestId": {
+                        "type": "string"
+                    },
+                    "interestData": {
+                        "type": "string"
+                    }
+                }
+            },
+            "UserSkillDto": {
+                "type": "object",
+                "properties": {
+                    "skillId": {
+                        "type": "string"
+                    },
+                    "skillData": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
