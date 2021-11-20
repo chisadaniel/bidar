@@ -5,10 +5,8 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import uaic.fii.profile.model.UserProfileDto;
 import uaic.fii.profile.model.UserSkillDto;
 
 import java.util.ArrayList;
@@ -35,7 +33,7 @@ public class UserSkillController {
             name = "Authorization",
             required = true,
             content = @Content(schema = @Schema(type = "string")))
-    public void addUserSkills() {
+    public void addUserSkills(@RequestBody UserSkillDto userSkillDto) {
     }
 
     @DeleteMapping("/profile/skill/{userId}")
@@ -45,6 +43,6 @@ public class UserSkillController {
             name = "Authorization",
             required = true,
             content = @Content(schema = @Schema(type = "string")))
-    public void deleteUserSkills() {
+    public void deleteUserSkills(@RequestBody UserSkillDto userSkillDto) {
     }
 }

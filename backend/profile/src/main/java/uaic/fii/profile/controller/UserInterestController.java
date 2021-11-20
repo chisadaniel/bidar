@@ -5,10 +5,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import uaic.fii.profile.model.UserInterestDto;
 
 import java.util.ArrayList;
@@ -35,7 +32,7 @@ public class UserInterestController {
             name = "Authorization",
             required = true,
             content = @Content(schema = @Schema(type = "string")))
-    public void addUserInterests() {
+    public void addUserInterests(@RequestBody UserInterestDto userInterestDto) {
     }
 
     @DeleteMapping("/profile/interest/{userId}")
@@ -45,6 +42,6 @@ public class UserInterestController {
             name = "Authorization",
             required = true,
             content = @Content(schema = @Schema(type = "string")))
-    public void deleteUserInterests() {
+    public void deleteUserInterests(@RequestBody UserInterestDto userInterestDto) {
     }
 }
