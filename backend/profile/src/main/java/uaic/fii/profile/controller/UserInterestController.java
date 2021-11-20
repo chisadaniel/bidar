@@ -25,23 +25,38 @@ public class UserInterestController {
         return new ArrayList<>();
     }
 
-    @PostMapping("/profile/interest/{userId}")
-    @Operation(description = "Add an interest for an user")
+    @GetMapping("/profile/interest")
+    @Operation(description = "This will return all the available interest")
     @Parameter(in = ParameterIn.HEADER,
             description = "The Authorization header is mandatory and its valid must be provide JWT token in the form: Authorization: Bearer + <token>",
             name = "Authorization",
             required = true,
             content = @Content(schema = @Schema(type = "string")))
-    public void addUserInterests(@RequestBody UserInterestDto userInterestDto) {
+    public List<UserInterestDto> getAllInterests() {
+        return new ArrayList<>();
     }
 
-    @DeleteMapping("/profile/interest/{userId}")
-    @Operation(description = "Deletes an interest assigned to an user")
+    @PostMapping("/profile/interest/{userId}/{interestId}")
+    @Operation(description = "Add an interest for an user",
+            parameters = {@Parameter(name = "interestId", in = ParameterIn.PATH, required = true, description = "The interest id that will be added"),
+                    @Parameter(name = "userId", in = ParameterIn.PATH, required = true, description = "The id of the user")})
     @Parameter(in = ParameterIn.HEADER,
             description = "The Authorization header is mandatory and its valid must be provide JWT token in the form: Authorization: Bearer + <token>",
             name = "Authorization",
             required = true,
             content = @Content(schema = @Schema(type = "string")))
-    public void deleteUserInterests(@RequestBody UserInterestDto userInterestDto) {
+    public void addUserInterests(@PathVariable String userId, @PathVariable String interestId) {
+    }
+
+    @DeleteMapping("/profile/interest/{userId}/{interestId}")
+    @Operation(description = "Deletes an interest assigned to an user",
+            parameters = {@Parameter(name = "interestId", in = ParameterIn.PATH, required = true, description = "The interest id that will be deleted"),
+                    @Parameter(name = "userId", in = ParameterIn.PATH, required = true, description = "The id of the user")})
+    @Parameter(in = ParameterIn.HEADER,
+            description = "The Authorization header is mandatory and its valid must be provide JWT token in the form: Authorization: Bearer + <token>",
+            name = "Authorization",
+            required = true,
+            content = @Content(schema = @Schema(type = "string")))
+    public void deleteUserInterests(@PathVariable String userId, @PathVariable String interestId) {
     }
 }
